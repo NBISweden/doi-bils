@@ -1,0 +1,73 @@
+<!doctype html>
+<head>
+   <meta charset="utf-8"/>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <title>Title</title>
+   <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
+   <style type="text/css">
+      table {
+      font-size: 105% !important;
+      }
+   </style>
+</head>
+<body>
+   <div class="page-header">
+      <h3>doi</h3>
+   </div>
+   <div class="panel panel-success">
+      <div class="panel-heading">
+         <h3 class="panel-title">Overview</h3>
+      </div>
+      <div class="panel-body">
+         <table class="table table-striped">
+            <tr>
+               <td>Title</td>
+               <td itemprop="name">{{work.title}}</td>
+            </tr>
+            <tr>
+               <td>Authors</td>
+               <td>
+                  {% for aut in work.authors %}
+                  {% if aut.literal %}
+                  {{aut.literal}} {% if not loop.last %},{% endif %}
+                  {% else %}
+                  {{aut.given}} {{aut.family}}{% if not loop.last %},{% endif %}
+                  {% endif %}
+                  {% endfor %}
+               </td>
+            </tr>
+            <tr>
+               <td>Description</td>
+               <td itemprop="description">
+                  {{work.description}}
+               </td>
+            </tr>
+            <tr>
+               <td>Year</td>
+               <td>{{work.year}}</td>
+            </tr>
+            <tr>
+               <td>doi</td>
+               <td itemprop="identifier"> {{work.doi}} </td>
+            </tr>
+            <tr>
+               <td>Access constraints</td>
+               <td>
+                  {{work.license}}
+               </td>
+            </tr>
+         </table>
+      </div>
+   </div>
+   <div class="panel panel-success">
+      <div class="panel-heading">
+         <h3 class="panel-title">Download</h3>
+      </div>
+      <div class="panel-body">
+      </div>
+   </div>
+</body>
