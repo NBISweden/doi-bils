@@ -4,7 +4,7 @@ except ImportError:
     from distutils.core import setup
 
 config = {
-    'description': 'doi-bils',
+    'description': 'NBIS works website and API',
     'version': '1.4',
     'install_requires': [
         'flask==1.0.2',

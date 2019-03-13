@@ -5,8 +5,8 @@ import settings
 
 log = logging.getLogger(__name__)
 
-api = Api(version='1.0', title='My doi API',
-          description='DataCite BILS articles')
+api = Api(version='1.0', title='NBIS works API',
+          description='NBIS works API')
 
 @api.errorhandler
 def default_error_handler(e):
