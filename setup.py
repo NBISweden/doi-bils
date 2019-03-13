@@ -5,11 +5,11 @@ except ImportError:
 
 config = {
     'description': 'doi-bils',
-    'version': '1.3',
+    'version': '1.4',
     'install_requires': [
         'flask==1.0.2',
         'flask-restplus==0.12.1',
-        'PyYAML>=3.13'
+        'requests==2.21.0'
     ],
     'scripts': [],
     'name': 'doi-bils'
