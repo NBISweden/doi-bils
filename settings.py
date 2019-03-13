@@ -1,7 +1,7 @@
 # Flask settings
 HOST = '0.0.0.0'
-PORT = 5000
-FLASK_DEBUG = True
+PORT = 8080
+FLASK_DEBUG = False
 
 # Flask-Restplus settings
 RESTPLUS_SWAGGER_UI_DOC_EXPANSION = 'list'
