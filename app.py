@@ -29,7 +29,7 @@ def single_work():
     if work:
         return render_template('landing_page.html', work=work)
     else:
-        abort(404, 'Entry not found')
+        abort(404, 'Entry not found in the server')
 
 
 def configure_app(flask_app):
