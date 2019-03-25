@@ -54,7 +54,7 @@
                   {% for work in works %}
                   <tr>
                      <td>
-                        <div class="article"><a href="works/{{ work.doi | replace("/", "%252F") | upper }}">{{ work.doi }}</a</div>
+                        <div class="article"><a href="works/?doi={{ work.doi | upper }}">{{ work.doi }}</a</div>
                      </td>
                      <td>
                         <div class="article">
