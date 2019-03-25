@@ -5,7 +5,7 @@ except ImportError:
 
 config = {
     'description': 'NBIS works website and API',
-    'version': '1.4',
+    'version': '1.7',
     'install_requires': [
         'flask==1.0.2',
         'flask-restplus==0.12.1',
