@@ -1,12 +1,15 @@
 import os
 import settings
-from api.doi_bils.endpoints.works_def import ns as works_ns
-from api.works import get_all_works,get_work_by_id
+import requests
+from api.works.work import get_all_works,get_work_by_id
 from api.restplus import api
-import requests, sys
+from api.works.namespace import ns
 from flask import (
-    Blueprint, Flask, flash, g, redirect, render_template, request, url_for, jsonify
+    Blueprint, Flask, render_template, request, abort
 )
+import logging
+
+log = logging.getLogger(__name__)
 
 app = Flask(__name__)
 api_blueprint = Blueprint('api', __name__, url_prefix='/api')
@@ -19,10 +22,14 @@ def all_works():
     return render_template('index.html', works=works)
 
 
-@works_blueprint.route('/<doi>')
-def single_work(doi):
+@works_blueprint.route('/')
+def single_work():
+    doi = request.args.get('doi')
     work = get_work_by_id(doi)
-    return render_template('landing_page.html', work=work)
+    if work:
+        return render_template('landing_page.html', work=work)
+    else:
+        abort(404, 'Entry not found')
 
 
 def configure_app(flask_app):
@@ -35,7 +42,7 @@ def configure_app(flask_app):
 def start_app(flask_app):
     configure_app(flask_app)
     api.init_app(api_blueprint)
-    api.add_namespace(works_ns)
+    api.add_namespace(ns)
     flask_app.register_blueprint(api_blueprint)
     flask_app.register_blueprint(works_blueprint)
 
