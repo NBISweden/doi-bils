@@ -22,3 +22,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Certs
+certs/ssl.cert
+certs/ssl.key
