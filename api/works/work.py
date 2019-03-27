@@ -13,12 +13,12 @@ def get_all_works():
 
     for item in response.json()['data']:
         work_dict = dict()
-        work_dict['title']=item['attributes']['title']
-        work_dict['description']=item['attributes']['description']
-        work_dict['year']=item['attributes']['published']
-        work_dict['doi']=item['attributes']['doi']
-        work_dict['access_constraints']=item['attributes']['license']
-        work_dict['authors']=item['attributes']['author']
+        work_dict['title']=item['attributes'].get('title', '')
+        work_dict['description']=item['attributes'].get('description', '')
+        work_dict['year']=item['attributes'].get('published', '')
+        work_dict['doi']=item['attributes'].get('doi', '')
+        work_dict['access_constraints']=item['attributes'].get('license', '')
+        work_dict['authors']=item['attributes'].get('author', [])
         works_array.append(work_dict)
 
     return works_array
@@ -33,11 +33,11 @@ def get_work_by_id(doi):
     work_dict = dict()
 
     for item in response.json()['data']:
-        work_dict['title']=item['attributes']['title']
-        work_dict['description']=item['attributes']['description']
-        work_dict['year']=item['attributes']['published']
-        work_dict['doi']=item['attributes']['doi']
-        work_dict['access_constraints']=item['attributes']['license']
-        work_dict['authors']=item['attributes']['author']
+        work_dict['title']=item['attributes'].get('title', '')
+        work_dict['description']=item['attributes'].get('description', '')
+        work_dict['year']=item['attributes'].get('published', '')
+        work_dict['doi']=item['attributes'].get('doi', '')
+        work_dict['access_constraints']=item['attributes'].get('license', '')
+        work_dict['authors']=item['attributes'].get('author', [])
 
     return work_dict
