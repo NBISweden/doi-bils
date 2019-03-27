@@ -64,9 +64,20 @@ def main():
     start_app(app)
     print('>>>>> Starting server at http://{}:{} <<<<<'.format(settings.HOST,settings.PORT))
     # Self generated certificates
-    generate_ssl_certs(country='SE', country_code='22', location='Uppsala', org='NBIS', email='pepe@hotmail.com', org_unit="NBIS sysdevs", common_name="NBIS")
+    generate_ssl_certs(country='SE',
+                       country_code='22',
+                       location='Uppsala',
+                       org='NBIS',
+                       email='test@domain.se',
+                       org_unit="NBIS sysdevs",
+                       common_name="NBIS")
+    # Create gevent WSGI server
+    wsgi_server = WSGIServer((settings.HOST, settings.PORT),
+                             app,
+                             certfile=settings.CERT_FILE,
+                             keyfile=settings.KEY_FILE,
+                             ca_certs=settings.CA_CERTS)
     # Start gevent WSGI server
-    wsgi_server = WSGIServer((settings.HOST, settings.PORT), app, certfile=settings.CERT_FILE, keyfile=settings.KEY_FILE)
     wsgi_server.serve_forever()
 
 if __name__ == "__main__":
