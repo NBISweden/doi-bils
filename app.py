@@ -1,9 +1,12 @@
 import os
 import settings
 import requests
+import json
 from api.works.work import get_all_works,get_work_by_id
 from api.restplus import api
 from api.works.namespace import ns
+from gevent.pywsgi import WSGIServer
+from certs.certs import generate_ssl_certs
 from flask import (
     Blueprint, Flask, render_template, request, abort
 )
@@ -50,8 +53,11 @@ def start_app(flask_app):
 def main():
     start_app(app)
     print('>>>>> Starting server at http://{}:{} <<<<<'.format(settings.HOST,settings.PORT))
-    app.run(host=settings.HOST,port=settings.PORT)
-
+    # Self generated certificates
+    generate_ssl_certs(country='SE', country_code='22', location='Uppsala', org='NBIS', email='pepe@hotmail.com', org_unit="NBIS sysdevs", common_name="NBIS")
+    # Start gevent WSGI server
+    wsgi_server = WSGIServer((settings.HOST, settings.PORT), app, certfile=settings.CERT_FILE, keyfile=settings.KEY_FILE)
+    wsgi_server.serve_forever()
 
 if __name__ == "__main__":
     main()
