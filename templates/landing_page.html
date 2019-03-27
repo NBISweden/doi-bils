@@ -53,12 +53,18 @@
             </tr>
             <tr>
                <td>doi</td>
-               <td itemprop="identifier"> {{work.doi}} </td>
+               <td itemprop="identifier"> {{work.doi | upper}} </td>
             </tr>
             <tr>
                <td>Access constraints</td>
                <td>
-                  {{work.access_constraints}}
+                 {% if work.access_constraints %}
+                 {% if 'http' in work.access_constraints %}
+                 <a href={{work.access_constraints}}> {{work.access_constraints}} </a>
+                 {% else %}
+                 {{work.access_constraints}}
+                 {% endif %}
+                 {% endif %}
                </td>
             </tr>
          </table>
