@@ -12,3 +12,4 @@ RESTPLUS_ERROR_404_HELP = False
 # Gevent settings
 CERT_FILE = 'certs/ssl.cert'
 KEY_FILE = 'certs/ssl.key'
+CA_CERTS = None
