@@ -30,9 +30,19 @@ def single_work():
     doi = request.args.get('doi')
     work = get_work_by_id(doi)
     if work:
-        return render_template('landing_page.html', work=work)
+        dl_link = read_download_info(doi)
+        return render_template('landing_page.html', work=work, data_link=dl_link)
     else:
         abort(404, 'Entry not found in the server')
+
+
+def read_download_info(doi):
+    dl_link = None
+    with open('data/issued_dois.json', 'r') as f:
+        issued_dois = json.load(f)
+        if (issued_dois['DOIs'][doi]):
+            dl_link = issued_dois['DOIs'][doi]['data_links'][0]
+    return dl_link
 
 
 def configure_app(flask_app):
