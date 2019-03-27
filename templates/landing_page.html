@@ -75,6 +75,15 @@
          <h3 class="panel-title">Download</h3>
       </div>
       <div class="panel-body">
+        {% if data_link %}
+        {% if 'http' in data_link  %}
+        <a href={{data_link}}> {{data_link}} </a>
+        {% elif '@' in data_link %}
+        Please contact <a href="mailto:{{data_link}}?subject=Requesting access to DOI: {{work.doi | upper}}"> {{data_link}} </a> in order to apply for access.
+        {% else %}
+        {{data_link}}
+        {% endif %}
+        {% endif %}
       </div>
    </div>
  </div>
