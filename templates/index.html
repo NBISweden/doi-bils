@@ -59,10 +59,10 @@
                      <td>
                         <div class="article">
                            {% for aut in work.authors %}
-                           {% if aut.literal %}
-                           {{aut.literal}} {% if not loop.last %},{% endif %}
+			   {% if aut.nameType == "Organizational" or not aut.givenName %}
+			   {{aut.name}} {% if not loop.last %},{% endif %}
                            {% else %}
-                           {{aut.given}} {{aut.family}}{% if not loop.last %},{% endif %}
+                           {{aut.givenName}} {{aut.familyName}}{% if not loop.last %},{% endif %}
                            {% endif %}
                            {% endfor %}
                         </div>
