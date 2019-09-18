@@ -33,10 +33,10 @@
                <td>Authors</td>
                <td>
                   {% for aut in work.authors %}
-                  {% if aut.literal %}
-                  {{aut.literal}} {% if not loop.last %},{% endif %}
+                  {% if aut.nameType == "Organizational" or not aut.givenName %}
+                  {{aut.name}} {% if not loop.last %},{% endif %}
                   {% else %}
-                  {{aut.given}} {{aut.family}}{% if not loop.last %},{% endif %}
+                  {{aut.givenName}} {{aut.familyName}}{% if not loop.last %},{% endif %}
                   {% endif %}
                   {% endfor %}
                </td>
@@ -58,12 +58,9 @@
             <tr>
                <td>Access constraints</td>
                <td>
-                 {% if work.access_constraints %}
-                 {% if 'http' in work.access_constraints %}
-                 <a href={{work.access_constraints}}> {{work.access_constraints}} </a>
-                 {% else %}
-                 {{work.access_constraints}}
-                 {% endif %}
+		 {{work.access_constraints[0]['rights']}}
+                 {% if work.access_constraints[0]['rightsUri'] %}
+                 <a href={{work.access_constraints}}> {{work.access_constraints[0]['rightsUri']}} </a>
                  {% endif %}
                </td>
             </tr>
