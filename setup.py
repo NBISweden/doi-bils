@@ -14,7 +14,7 @@ config = {
         'cryptography==2.6.1'
     ],
     'scripts': [],
-    'name': 'doi-bils'
+    'name': 'doi-nbis'
 }
 
 setup(**config)
