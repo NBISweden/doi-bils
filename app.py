@@ -28,21 +28,30 @@ def all_works():
 @works_blueprint.route('/')
 def single_work():
     doi = request.args.get('doi')
-    work = get_work_by_id(doi)
-    if work:
-        dl_link = read_download_info(doi)
-        return render_template('landing_page.html', work=work, data_link=dl_link)
-    else:
-        abort(404, 'Entry not found in the server')
+    if doi is not None:
+        doi_exists = check_doi_exists(doi)
+        if doi_exists:
+            work = get_work_by_id(doi)
+            dl_link = read_download_info(doi)
+            if work is not None:
+                return render_template('landing_page.html', work=work, data_link=dl_link)
+    abort(404, 'Entry not found in the server')
 
 
 def read_download_info(doi):
     dl_link = None
     with open('data/issued_dois.json', 'r') as f:
         issued_dois = json.load(f)
-        if (issued_dois['DOIs'][doi]):
-            dl_link = issued_dois['DOIs'][doi]['data_links'][0]
+        dl_link = issued_dois['DOIs'][doi]['data_links'][0]
     return dl_link
+
+
+def check_doi_exists(doi):
+    with open('data/issued_dois.json', 'r') as f:
+        issued_dois = json.load(f)
+        if doi in issued_dois['DOIs']:
+            return True
+        return False
 
 
 def configure_app(flask_app):
