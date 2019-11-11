@@ -64,6 +64,18 @@
                  {% endif %}
                </td>
             </tr>
+	    {% if work.reference %}
+	    <tr>
+               <td>Reference</td>
+               <td>
+	       {{work.reference['title']}}
+	       {% for aut in work.reference.author %}
+	       {{aut.given}} {{aut.family}}{% if not loop.last %},{% endif %}
+	       {% endfor %}
+	       {{work.reference['doi']}}
+               </td>
+            </tr>
+	    {% endif %}
          </table>
       </div>
    </div>
