@@ -27,7 +27,7 @@ def get_all_works():
 def get_work_by_id(identifier):
     url = 'https://api.datacite.org/dois/'
     headers = {'Content-Type': 'application/json'}
-    params = '{}'.format(identifier)
+    params = identifier
     log.info(params)
     response = requests.get(url + params, headers=headers)
     assert response.status_code == 200
@@ -40,5 +40,27 @@ def get_work_by_id(identifier):
     work_dict['doi']=item['attributes'].get('doi', '')
     work_dict['access_constraints']=item['attributes'].get('rightsList', '')
     work_dict['authors']=item['attributes'].get('creators', [])
+     
+    related_ids=item['attributes'].get('relatedIdentifiers', '')
+
+    work_dict['reference']=get_crossref_metadata(related_ids)
 
     return work_dict
+
+def get_crossref_metadata(related_ids):
+    url = 'https://api.crossref.org/works/'
+    headers = {'Content-Type': 'application/json'}
+    reference = dict()
+
+    if len(related_ids) != 0:
+      if related_ids[0]['relationType'] == 'IsSupplementTo':
+        doi = related_ids[0]['relatedIdentifier'] 
+        log.info(doi)
+        response = requests.get(url + doi, headers=headers)
+        assert response.status_code == 200
+        item = response.json()
+        reference['author']=item['message']['author']
+        reference['title']=item['message']['title'][0]
+        reference['doi']=doi
+
+    return reference
