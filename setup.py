@@ -11,7 +11,7 @@ config = {
         'flask-restplus==0.12.1',
         'requests==2.21.0',
         'gevent==1.4.0',
-        'cryptography==2.6.1'
+        'cryptography==3.2'
     ],
     'scripts': [],
     'name': 'doi-nbis'
